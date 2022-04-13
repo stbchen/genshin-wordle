@@ -1,7 +1,5 @@
 import random
 from re import X
-#
-# height? gender? nation?
 peepee = {
     "albedo": ["sword", "geo", "mondstadt"],
     "aloy": ["bow", "cryo", "collab"],
@@ -55,11 +53,11 @@ MAX_ATTEMPT = 5
 play_again = True
 while play_again:
     ans = random.choice(list(peepee.keys()))
-    attempt = 0
-    while (attempt < MAX_ATTEMPT):
+    attempt = MAX_ATTEMPT
+    while (attempt > 0):
         guess = input("\nguess genshin char: ").lower()
         if guess not in peepee:
-            print(" invalid input") 
+            print("invalid input") 
         elif guess != ans:
             if peepee[guess][0] == peepee[ans][0]:
                 wep = "O"
@@ -73,15 +71,15 @@ while play_again:
                 nation = "O"
             else:
                 nation = "X"
-            print(f"{guess}: \t{wep} weapon \t{vision} vision \t{nation} nation")
-            attempt += 1
+            attempt -= 1
+            print(f"{guess}: \t{wep} weapon \t{vision} vision \t{nation} nation \t{attempt} guesses left")
         else:
             print("correct")
             break
             
-    if attempt == MAX_ATTEMPT:
-        print("game over")
-    
+    if attempt == 0:
+        print(f"game over, answer was {ans}")
+
     inp = input("play again? y/n ")
     play_again = True if inp.lower() == "y" else False
 
