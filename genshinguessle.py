@@ -1,62 +1,57 @@
 import random
 from re import X
 #
-# anemo geo pyro cryo electro hydro dendro
-# 1     2   3    4    5       6     7
-# sword claymore catalyst bow polearm
-# 1     2        3        4   5
 # height? gender? nation?
-# order: weapon, vision
 peepee = {
-    "albedo": ["sword", "geo"],
-    "aloy": ["bow", "cryo"],
-    "amber": [4, "pyro"],
-    "arataki itto": ["claymore", "geo"],
-    "barbara": ["catalyst", "hydro"],
-    "beidou": ["claymore", "electro"],
-    "bennett": ["sword", "pyro"],
-    "chongyun": ["claymore", "cryo"],
-    "diluc": ["claymore", "pyro"],
-    "diona": [4, "cryo"],
-    "eula": ["claymore", "cryo"],
-    "fischl": [4, "electro"],
-    "ganyu": [4, "cryo"],
-    "gorou": [4, "geo"],
-    "hu tao": [5, "pyro"],
-    "jean": ["sword", "anemo"],
-    "kaedehara kazuha": ["sword", "anemo"],
-    "kaeya": ["sword", "cryo"],
-    "kamisato ayaka": ["sword", "cryo"],
-    "kamisato ayato": ["sword", "hydro"],
-    "keqing": ["sword", "electro"],
-    "klee": ["catalyst", "pyro"],
-    "kujou sara": [4, "electro"],
-    "lisa": ["catalyst", "electro"],
-    "mona": ["catalyst", "hydro"],
-    "ningguang": ["catalyst", "geo"],
-    "noelle": ["claymore", "geo"],
-    "qiqi": ["sword", "cryo"],
-    "raiden shogun": [5, "electro"],
-    "razor": ["claymore", "electro"],
-    "rosaria": [5, "cryo"],
-    "sangonomiya kokomi": ["catalyst", "hydro"],
-    "sayu": ["claymore", "anemo"],
-    "shenhe": [5, "cryo"],
-    "sucrose": ["catalyst", "anemo"],
-    "tartaglia": [4, "hydro"],
-    "thoma": [5, "pyro"],# traveler vv
-    "venti": [4, "anemo"],# traveler ^^
-    "xiangling": [5, "pyro"],
-    "xiao": [5, "anemo"],
-    "xingqiu": ["sword", "hydro"],
-    "xinyan": ["claymore", "pyro"],
-    "yae miko": ["catalyst", "electro"],
-    "yanfei": ["catalyst", "pyro"],
-    "yoimiya": [4, "pyro"],
-    "yun jin": [5, "geo"],
-    "zhongli": [5, "geo"]
+    "albedo": ["sword", "geo", "mondstadt"],
+    "aloy": ["bow", "cryo", "collab"],
+    "amber": ["bow", "pyro", "mondstadt"],
+    "arataki itto": ["claymore", "geo", "inazuma"],
+    "barbara": ["catalyst", "hydro", "mondstadt"],
+    "beidou": ["claymore", "electro", "liyue"],
+    "bennett": ["sword", "pyro", "mondstadt"],
+    "chongyun": ["claymore", "cryo", "liyue"],
+    "diluc": ["claymore", "pyro", "mondstadt"],
+    "diona": ["bow", "cryo", "mondstadt"],
+    "eula": ["claymore", "cryo", "mondstadt"],
+    "fischl": ["bow", "electro", "mondstadt"],
+    "ganyu": ["bow", "cryo", "liyue"],
+    "gorou": ["bow", "geo", "inazuma"],
+    "hu tao": ["polearm", "pyro", "liyue"],
+    "jean": ["sword", "anemo", "mondstadt"],
+    "kaedehara kazuha": ["sword", "anemo", "inazuma"],
+    "kaeya": ["sword", "cryo", "mondstadt"],
+    "kamisato ayaka": ["sword", "cryo", "inazuma"],
+    "kamisato ayato": ["sword", "hydro", "inazuma"],
+    "keqing": ["sword", "electro", "liyue"],
+    "klee": ["catalyst", "pyro", "mondstadt"],
+    "kujou sara": ["bow", "electro", "inazuma"],
+    "lisa": ["catalyst", "electro", "mondstadt"],
+    "mona": ["catalyst", "hydro", "mondstadt"],
+    "ningguang": ["catalyst", "geo", "liyue"],
+    "noelle": ["claymore", "geo", "mondstadt"],
+    "qiqi": ["sword", "cryo", "liyue"],
+    "raiden shogun": ["polearm", "electro", "inazuma"],
+    "razor": ["claymore", "electro", "mondstadt"],
+    "rosaria": ["polearm", "cryo", "mondstadt"],
+    "sangonomiya kokomi": ["catalyst", "hydro", "inazuma"],
+    "sayu": ["claymore", "anemo", "inazuma"],
+    "shenhe": ["polearm", "cryo", "liyue"],
+    "sucrose": ["catalyst", "anemo", "mondstadt"],
+    "tartaglia": ["bow", "hydro", "liyue"],
+    "thoma": ["polearm", "pyro", "inazuma"],# traveler vv
+    "venti": ["bow", "anemo", "mondstadt"],# traveler ^^
+    "xiangling": ["polearm", "pyro", "liyue"],
+    "xiao": ["polearm", "anemo", "liyue"],
+    "xingqiu": ["sword", "hydro", "liyue"],
+    "xinyan": ["claymore", "pyro", "liyue"],
+    "yae miko": ["catalyst", "electro", "inazuma"],
+    "yanfei": ["catalyst", "pyro", "liyue"],
+    "yoimiya": ["bow", "pyro", "inazuma"],
+    "yun jin": ["polearm", "geo", "liyue"],
+    "zhongli": ["polearm", "geo", "liyue"]
 }
-MAX_ATTEMPT = 7
+MAX_ATTEMPT = 5
 play_again = True
 while play_again:
     ans = random.choice(list(peepee.keys()))
@@ -74,7 +69,11 @@ while play_again:
                 vision = "O"
             else:
                 vision = "X"
-            print(f"{guess}: \t{wep} weapon \t{vision} vision")
+            if peepee[guess][2] == peepee[ans][2]:
+                nation = "O"
+            else:
+                nation = "X"
+            print(f"{guess}: \t{wep} weapon \t{vision} vision \t{nation} nation")
             attempt += 1
         else:
             print("correct")
@@ -87,25 +86,6 @@ while play_again:
     play_again = True if inp.lower() == "y" else False
 
 """
-do i run it
 
-if u put guesses back inside the loop we can ask to play again or quit
-no
-we need to generate a new answer
-yea itll just go in the if or something
-we could also structure the prints in the game to align in like a table
-like print("name    weapon  vision")
-print("{guess} {wep} {vision})
-run it
-oops the prompt for guess genshin char has to change now cuz itll ruin the table unless we indent for it or something idk
-wait dude there shouldnt even be a number of guesses right
-no
-
-why 
-are we done already
-is there a league of legends wordle
-
-okay we also need to make this more readable, i think we dont need to store each thing as an int just put the whole string
-i think we should do the checks for vision and weapo nand then put it in one print with like x for wrong and o for right orsomething to match the wordle symbols
 
 """
