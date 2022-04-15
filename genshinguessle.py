@@ -1,6 +1,6 @@
 import random
-from re import X
-peepee = {
+
+characters = {
     "albedo": ["sword", "geo", "mondstadt"],
     "aloy": ["bow", "cryo", "collab"],
     "amber": ["bow", "pyro", "mondstadt"],
@@ -37,8 +37,8 @@ peepee = {
     "shenhe": ["polearm", "cryo", "liyue"],
     "sucrose": ["catalyst", "anemo", "mondstadt"],
     "tartaglia": ["bow", "hydro", "liyue"],
-    "thoma": ["polearm", "pyro", "inazuma"],# traveler vv
-    "venti": ["bow", "anemo", "mondstadt"],# traveler ^^
+    "thoma": ["polearm", "pyro", "inazuma"],
+    "venti": ["bow", "anemo", "mondstadt"],
     "xiangling": ["polearm", "pyro", "liyue"],
     "xiao": ["polearm", "anemo", "liyue"],
     "xingqiu": ["sword", "hydro", "liyue"],
@@ -52,25 +52,16 @@ peepee = {
 MAX_ATTEMPT = 5
 play_again = True
 while play_again:
-    ans = random.choice(list(peepee.keys()))
+    ans = random.choice(list(characters.keys()))
     attempt = MAX_ATTEMPT
-    while (attempt > 0):
+    while attempt > 0:
         guess = input("\nguess genshin char: ").lower()
-        if guess not in peepee:
+        if guess not in characters:
             print("invalid input") 
         elif guess != ans:
-            if peepee[guess][0] == peepee[ans][0]:
-                wep = "O"
-            else: 
-                wep = "X"
-            if peepee[guess][1] == peepee[ans][1]:
-                vision = "O"
-            else:
-                vision = "X"
-            if peepee[guess][2] == peepee[ans][2]:
-                nation = "O"
-            else:
-                nation = "X"
+            wep = "O" if characters[guess][0] == characters[ans][0] else "X"
+            vision = "O" if characters[guess][1] == characters[ans][1] else "X"
+            nation = "O" if characters[guess][2] == characters[ans][2] else "X"
             attempt -= 1
             print(f"{guess}: \t{wep} weapon \t{vision} vision \t{nation} nation \t{attempt} guesses left")
         else:
@@ -78,12 +69,7 @@ while play_again:
             break
             
     if attempt == 0:
-        print(f"game over, answer was {ans}")
+        print(f"game over, answer was {ans.title()}")
 
     inp = input("play again? y/n ")
     play_again = True if inp.lower() == "y" else False
-
-"""
-
-
-"""
