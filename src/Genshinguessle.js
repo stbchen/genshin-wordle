@@ -64,28 +64,24 @@ class Genshinguessle extends Phaser.Scene {
         this.nat = "";
         this.errorText = this.add.text(16, 16, 'Invalid Input', {fontSize: '32px', fill: '#000' });
         this.keys = Array.from(this.characters.keys());
+        keyY = this.input.keyboard.addKeys(Phaser.Input.Keyboard.KeyCodes.Y);
         this.input.keyboard.on('keydown', (event) => {this.handleInput(event.key);});
         this.add.text(540, 10, "Genshin Wordle", { fontSize: '32px', fill: '#FFF' }).setOrigin(0.5,0);
         this.add.text(540, this.gpos - 32, "Guess the character: ", { fontSize: '32px', fill: '#FFF'}).setOrigin(0.5,0);
         this.playerTextDisplay = this.add.text(540, this.gpos, this.playerText, { fontSize: '32px', fill: '#FFF' }).setOrigin(0.5,0);
         this.ans = this.keys[Phaser.Math.Between(0, this.characters.size - 1)];
-        console.log(this.ans);
         this.attempt = this.MAX_ATTEMPT;
     }
     update() {
         if (this.play_again == true) {
-            if (this.attempt > 0) {
+            if (this.attempt >= 0) {
                 console.log(this.guess);
                 if (this.guessed) {
-                    console.log("hi");
-                    //this.add.text(540, this.gpos, "Guess the character: ", { fontSize: '32px', fill: '#FFF'}).setOrigin(0.5,0);
                     if (!this.characters.has(this.guess)) {
                         this.errorText = this.add.text(16, 16, 'Invalid Input', {fontSize: '32px', fill: '#FFF' });
-                        //this.playerTextDisplay.setColor('#FF0000');
                         this.guess = "";
                         this.playerTextDisplay.text ="";
                     } else {
-                        console.log(this.characters.get(this.characters.keys()[this.ans]));
                         if (!(this.guess == this.ans)) {
                             if (this.characters.get(this.guess).weapon == this.characters.get(this.ans).weapon) {
                                 this.wep = "O";
@@ -104,18 +100,27 @@ class Genshinguessle extends Phaser.Scene {
                             }
                             this.add.text(540, this.gpos, this.guess + ":\t" + this.wep + " weapon\t" + this.vis + " vision\t" + this.nat + " nation\t" + this.attempt + " guesses left", { fontSize: '32px', fill: '#FFF' }).setOrigin(0.5,0);
                         } else {
-                            this.add.text(540, this.gpos+32, "correct :D", { fontSize: '32px', fill: '#FFF' }).setOrigin(0.5,0);
+                            this.add.text(540, this.gpos, "correct :D", { fontSize: '32px', fill: '#FFF' }).setOrigin(0.5,0);
                             this.playerTextDisplay.setColor('#000');
-                            this.playerTextDisplay.y = this.gpos + 32;
+                            this.playerTextDisplay.y = this.gpos + 64;
                             this.play_again = false;
+                            this.add.text(540, this.gpos + 32, "play again? (y/n)", { fontSize: '32px', fill: '#FFF' }).setOrigin(0.5,0);
                         }
                         this.guess = "";
                         this.playerTextDisplay.y = this.gpos + 32;
+                        this.attempt--;
+                        this.gpos += 32;
                     }
-                    this.gpos += 32;
                     this.guessed = false;
-                    this.attempt--;
                 }
+            }
+            if (this.attempt == -1) {
+                this.add.text(540, this.gpos, "game over, answer was " + this.ans, { fontSize: '32px', fill: '#FFF' }).setOrigin(0.5,0);
+                this.play_again = false;
+                this.playerText = "";
+                this.add.text(540, this.gpos + 32, "play again? (y/n)", { fontSize: '32px', fill: '#FFF' }).setOrigin(0.5,0);
+                this.playerTextDisplay.setColor('#000');
+                this.playerTextDisplay.y = this.gpos + 64;
             }
         }
     }
@@ -135,6 +140,11 @@ class Genshinguessle extends Phaser.Scene {
             this.playerText = "";
         }
         this.playerTextDisplay.text = this.playerText;
+        if (this.play_again == false) {
+            if (this.playerText == "y") {
+                this.scene.restart();
+            }
+        }
     }
 
     // func found at https://www.codegrepper.com/code-examples/javascript/javascript+check+if+a-z+A-Z

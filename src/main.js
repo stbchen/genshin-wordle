@@ -8,6 +8,6 @@ let config = {
     scene: [Genshinguessle],
 };
 
-let cursors;
+let keyY;
 
 let game = new Phaser.Game(config);
