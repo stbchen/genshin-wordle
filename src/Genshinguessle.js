@@ -52,7 +52,6 @@ class Genshinguessle extends Phaser.Scene {
         this.characters.set("yun jin", {weapon: "polearm", vision: "geo", nation: "liyue"});
         this.characters.set("zhongli", {weapon: "polearm", vision: "geo", nation: "liyue"});
 
-
         this.MAX_ATTEMPT = 5;
         this.play_again = true;
         this.playerText = "";
@@ -100,7 +99,7 @@ class Genshinguessle extends Phaser.Scene {
                             }
                             this.add.text(540, this.gpos, this.guess + ":\t" + this.wep + " weapon\t" + this.vis + " vision\t" + this.nat + " nation\t" + this.attempt + " guesses left", { fontSize: '32px', fill: '#FFF' }).setOrigin(0.5,0);
                         } else {
-                            this.add.text(540, this.gpos, "correct :D", { fontSize: '32px', fill: '#FFF' }).setOrigin(0.5,0);
+                            this.add.text(540, this.gpos, "correct! it was " + this.ans + "!!! :D", { fontSize: '32px', fill: '#FFF' }).setOrigin(0.5,0);
                             this.playerTextDisplay.setColor('#000');
                             this.playerTextDisplay.y = this.gpos + 64;
                             this.play_again = false;
