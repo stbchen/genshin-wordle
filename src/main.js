@@ -3,11 +3,11 @@
 
 let config = {
     type: Phaser.CANVAS,
-    width: 1080,
+    width: 1500,
     height: 720,
     scene: [Genshinguessle],
 };
-
-let keyY;
+let borderUILength = config.width;
+let keyY, keyTAB;
 
 let game = new Phaser.Game(config);
